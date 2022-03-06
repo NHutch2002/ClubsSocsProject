@@ -30,3 +30,24 @@ def howto(request):
     context_dict = {}
 
     return render(request, 'rango/how-to.html', context_dict)
+
+def myaccount(request):
+    context_dict = {}
+
+    return render(request, 'rango/my-account.html', context_dict)
+
+def login(request):
+    context_dict = {}
+
+    return render(request, 'rango/login.html', context_dict)
+
+def register(request):
+    context_dict = {}
+
+    return render(request, 'rango/register.html', context_dict)
+
+
+def signup(request):
+    context_dict = {}
+
+    return render(request, 'rango/sign-up.html', context_dict)
