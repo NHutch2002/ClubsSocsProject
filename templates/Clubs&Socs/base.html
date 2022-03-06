@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Clubs & Socs -
+      {% block title_block %}
+      {% endblock %}
+    </title>
+  </head>
+  <body>
+    <div>
+      {% block body_block %}
+      {% endblock %}
+    </div>
+    <h1>Test for base template</h1>
+    <div>
+      <ul>
+        <li><a href="{% url 'Clubs&Socs:index' %}">Homepage</a></li>
+        <li><a href="{% url 'Clubs&Socs:societies' %}">Societies</a></li>
+        <li><a href="{% url 'Clubs&Socs:discover' %}">Discover</a></li>
+        <li><a href="{% url 'Clubs&Socs:result' %}">Result <strong>This will be accesible through search only here for proof it exists</strong></a></li>
+        <li><a href="{% url 'Clubs&Socs:wellbeing' %}">Wellbeing</a></li>
+        <li><a href="{% url 'Clubs&Socs:howto' %}">How To</a></li>
+        <li><a href="{% url 'Clubs&Socs:myaccount' %}">My Account</a></li>
+        <li><a href="{% url 'Clubs&Socs:login' %}">Login</a></li>
+      </ul>
+    </div>
+  </body>
+</html>
