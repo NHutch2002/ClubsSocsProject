@@ -5,10 +5,21 @@ import datetime
 
 # Create your models here.
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
+    #username, first name, last name, email, and password fields all provided by User model by default
+    is_society = models.BooleanField(default = False);
+    is_student = models.BooleanField(default = False);
+    
+
+    def __str__(self):
+        return self.user.username   
+
 #Should we have a OneToOne relationship with User in Society, because there are society users? Ask tutor if possible
 class Society(models.Model):
-    owner = models.OneToOneField(User, on_delete=models.CASCADE, null = True) #One to one relationship defining a user who owns the society.
-    member = models.ManyToManyField(User, related_name = "memberOf") #Many to many relationship to enable identifiaction of what regular users are members of this society
+    owner = models.OneToOneField(UserProfile, on_delete=models.CASCADE, null = True) #One to one relationship defining a user who owns the society.
+    member = models.ManyToManyField(UserProfile, related_name = "memberOf", null = True) #Many to many relationship to enable identifiaction of what regular users are members of this society
     societyName = models.CharField(max_length=64, unique=True)
     logo = models.ImageField(upload_to='society_logos', blank = True)
     description = models.CharField(max_length=256)
@@ -29,7 +40,7 @@ class Society(models.Model):
 
 class Event(models.Model):
     societyName = models.ForeignKey(Society, on_delete=models.CASCADE)
-    attendee = models.ManyToManyField(User) #Many to many relationship to enable identifiaction of what regular users are attending this event
+    attendee = models.ManyToManyField(UserProfile, null = True) #Many to many relationship to enable identifiaction of what regular users are attending this event
     eventName = models.CharField(max_length=64)
     description = models.CharField(max_length=256)
     memberNum = models.IntegerField(default=0)
@@ -41,15 +52,4 @@ class Event(models.Model):
         super(Event,self).save(*args,**kwargs)
 
     def __str__(self):
-        return self.eventName
-
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    
-    #username, first name, last name, email, and password fields all provided by User model by default
-    is_society = models.BooleanField(default = False);
-    is_student = models.BooleanField(default = False);
-    
-
-    def __str__(self):
-        return self.user.username    
+        return self.eventName 
