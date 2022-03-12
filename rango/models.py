@@ -7,12 +7,13 @@ import datetime
 
 #Should we have a OneToOne relationship with User in Society, because there are society users? Ask tutor if possible
 class Society(models.Model):
+    owner = models.OneToOneField(User, on_delete=models.CASCADE, null = True) #One to one relationship defining a user who owns the society.
+    member = models.ManyToManyField(User, related_name = "memberOf") #Many to many relationship to enable identifiaction of what regular users are members of this society
     societyName = models.CharField(max_length=64, unique=True)
     logo = models.ImageField(upload_to='society_logos', blank = True)
     description = models.CharField(max_length=256)
-    # figure out how to do this properly interests = models.EnumField()
     views = models.IntegerField(default=0)
-    members = models.IntegerField(default=0)
+    memberNum = models.IntegerField(default=0)
     slug = models.SlugField(unique = True)
     
     def save(self, *args, **kwargs):
@@ -28,9 +29,10 @@ class Society(models.Model):
 
 class Event(models.Model):
     societyName = models.ForeignKey(Society, on_delete=models.CASCADE)
+    attendee = models.ManyToManyField(User) #Many to many relationship to enable identifiaction of what regular users are attending this event
     eventName = models.CharField(max_length=64)
     description = models.CharField(max_length=256)
-    members = models.IntegerField(default=0)
+    memberNum = models.IntegerField(default=0)
     date = models.DateField(default = datetime.date.today())
     slug = models.SlugField(unique = True)
     
@@ -45,8 +47,9 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     
     #username, first name, last name, email, and password fields all provided by User model by default
-    # figure out how to do this properly interests = models.EnumField()
-    is_society = models.BooleanField()
+    is_society = models.BooleanField(default = False);
+    is_student = models.BooleanField(default = False);
+    
 
     def __str__(self):
         return self.user.username    

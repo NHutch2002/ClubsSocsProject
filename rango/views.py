@@ -12,6 +12,18 @@ def societies(request):
     context_dict = {}
 
     return render(request, 'Clubs&Socs/societies.html', context_dict)
+
+#add html    
+def society(request):
+    context_dict = {}
+
+    return render(request, 'Clubs&Socs/society.html', context_dict)
+
+#add html    
+def event(request):
+    context_dict = {}
+
+    return render(request, 'Clubs&Socs/event.html', context_dict)
     
 def show_society(request, society_name_slug):
     context_dict = {}
@@ -41,7 +53,7 @@ def show_event(request, event_name_slug):
     except Society.DoesNotExist:
         context_dict ['event'] = None
     
-    return render(request, 'Clubs&Socs/societies.html', context=context_dict)
+    return render(request, 'Clubs&Socs/event.html', context=context_dict)
 
 
 def discover(request):
