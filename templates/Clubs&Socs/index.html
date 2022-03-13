@@ -1,10 +1,63 @@
 {% extends 'Clubs&Socs/base.html' %}
 
+{% load staticfiles %}
 
 {% block title_block %}
   Homepage
 {% endblock %}
 
+{% block extra_head %}
+  .headingbar {
+    background-color:#70ad47;
+    color:#ffffff;
+    padding:5px;
+    margin-bottom:50px;
+    text-align:center;
+  }
+
+  .homelinks{
+    display:inline;
+    margin:75px;
+    text-align:center;
+  }
+
+  .homeimages{
+    width:600px;
+  }
+{% endblock %}
+
 {% block body_block %}
-  <h1>Homepage</h1>
+  <div class="headingbar">
+    <h1>Home Page</h1>
+    <h3>Welcome to Clubs and Societies!</h3>
+  </div>
+  <div style="float:left;">
+    <div class="homelinks">
+      <a href="{% url 'Clubs&Socs:societies' %}"  style="text-decoration:none">
+        <img class="homeimages" src="{% static 'images/findaclub.png' %}" alt="Find a Club">
+        <h3>Find a Club</h3>
+      </a>
+    </div>
+    <div class="homelinks">
+      <a href="{% url 'Clubs&Socs:discover' %}"  style="text-decoration:none">
+        <img class="homeimages" src="{% static 'images/whatson.jpg' %}" alt="What's On">
+        <h3>What's On!</h3>
+      </a>
+    </div>
+  </div>
+
+  <div style="float:right;">
+    <div class="homelinks">
+      <a href="{% url 'Clubs&Socs:wellbeing' %}"  style="text-decoration:none">
+        <img class="homeimages" src="{% static 'images/help.png' %}" alt="Advice & Support">
+        <h3>Advice & Support</h3>
+      </a>
+    </div>
+    <div class="homelinks">
+      <a href="{% url 'Clubs&Socs:howto' %}" style="text-decoration:none">
+        <img class="homeimages" src="{% static 'images/startaclub.jpg' %}" alt="Start a Club">
+        <h3>Start a Club</h3>
+      </a>
+    </div>
+  </div>
 {% endblock %}

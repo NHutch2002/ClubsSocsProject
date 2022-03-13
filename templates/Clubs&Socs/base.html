@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+{% load staticfiles %}
+
 <html>
   <head>
     <title>
@@ -6,7 +9,57 @@
       {% block title_block %}
       {% endblock %}
     </title>
+    <style>
+      .header{
+        background-color:#0070c0;
+        padding: 20px;
+      }
+      .logo{
+        display: inline-block;
+        margin-left: 2%;
+        max-height: 100px;
+      }
+      .searchbar{
+        display: inline-block;
+        color: #ffffff;
+        margin-left: 50%;
+        vertical-align: 200%;
+        border: 3px solid grey;
+      }
+      .profile{
+        display: inline-block;
+        float: right;
+        max-height: 80px;
+        margin-right: 10px
+      }
+
+      html{
+        font-family: Trebuchet MS, sans-serif;
+      }
+
+
+
+      {% block extra_head %}
+      {% endblock %}
+    </style>
+
   </head>
+  <header>
+    <div class="header">
+      <div style="display:inline;">
+        <img src="{% static 'images/logo.png' %}" class="logo "alt="Picture of logo">
+      </div>
+      <div style="display:inline;">
+        <strong class="searchbar">*Searchbar in here*</strong>
+      </div>
+      <div style="display:inline;float:right">
+        <a href="{% url 'Clubs&Socs:login' %}" style="text-decoration:none;">
+          <img src="{% static 'images/genericprofile.png' %}" class="profile" alt="Profile Picture">
+          <h2>Login</h2>
+        </a>
+      </div>
+    </div>
+  </header>
   <body>
     <div>
       {% block body_block %}
