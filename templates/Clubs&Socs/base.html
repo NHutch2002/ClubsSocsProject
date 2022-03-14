@@ -17,20 +17,27 @@
       .logo{
         display: inline-block;
         margin-left: 2%;
-        max-height: 100px;
+        max-height: 125px;
       }
       .searchbar{
         display: inline-block;
         color: #ffffff;
         margin-left: 50%;
-        vertical-align: 200%;
+        vertical-align: 250%;
         border: 3px solid grey;
       }
       .profile{
         display: inline-block;
         float: right;
         max-height: 80px;
-        margin-right: 10px
+      }
+
+      .loginblock{
+        display:inline;
+        float:right;
+        text-align:center;
+        margin-right:10px;
+        margin-top: 10px;
       }
 
       html{
@@ -47,15 +54,17 @@
   <header>
     <div class="header">
       <div style="display:inline;">
-        <img src="{% static 'images/logo.png' %}" class="logo "alt="Picture of logo">
+        <a href="{% url 'Clubs&Socs:index' %}">
+          <img src="{% static 'images/logo.png' %}" class="logo "alt="Picture of logo">
+        </a>
       </div>
       <div style="display:inline;">
         <strong class="searchbar">*Searchbar in here*</strong>
       </div>
-      <div style="display:inline;float:right">
+      <div class="loginblock">
         <a href="{% url 'Clubs&Socs:login' %}" style="text-decoration:none;">
           <img src="{% static 'images/genericprofile.png' %}" class="profile" alt="Profile Picture">
-          <h2>Login</h2>
+          <h2 style="color:black">Login</h2>
         </a>
       </div>
     </div>

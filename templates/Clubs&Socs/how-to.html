@@ -5,7 +5,65 @@
   How To
 {% endblock %}
 
+{% block extra_head %}
+  .headingbar {
+    background-color:#70ad47;
+    color:#ffffff;
+    padding:5px;
+    margin-bottom:50px;
+    text-align:center;
+  }
+
+  .requirements {
+    background-color:#ccdfeb;
+    padding:10px;
+  }
+
+{% endblock %}
 
 {% block body_block %}
-  <h1>How To Page</h1>
+  <div class="headingbar">
+    <h1>Start a Club</h1>
+    <h3>How to create a new Society!</h3>
+  </div>
+  <div>
+    <h2>Affiliate your Club/Society</h2><br>
+    <p>To fill the affiliate application, you must have registered for an account, which can be done <a href="{% url 'Clubs&Socs:login' %}">here</a></p><br>
+    <p>In order become an affiliate, you must complete an online affiliation application, which can be found *here*. You must have the following documents on hand to submit within your application:</p>
+    <ul>
+      <li><p>Membership List, including the names and student numbers of all UofG student members, and the names of all non-student members</p></li>
+      <li><p>Office Bearer & HEAR Form 2021-2022</p></li>
+      <li><p>Club Constitution, which must include the sections highlighted within the <a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fwww.glasgowunisrc.org%2Fpageassets%2Fclubs-socs%2Fstart%2FModel-Constitution-21-22.docx&wdOrigin=BROWSELINK" style="text-decoration:none;color:blue">Model Constitution</a></p></li>
+    </ul>
+    <br>
+    <div class="requirements">
+      <h3><strong>To be eligible to affiliate your club/society, it must:</strong></h3>
+      <ul>
+        <li><p>Have at least three committee members. (e.g. President, Secretary, Treasurer)</p></li>
+        <li><p>Have a minimum of 15 members in total</p></li>
+        <li><p>Ensure all Office Bearers are current students of the university</p></li>
+        <li><p>Have no more than 20% of members as non-students</p></li>
+        <li><p>Not replicate the remit of an existing club or society. A club or society must be able to clearly demonstrate its specific purpose and identity, and these must be different from any other pre-existing club or society.</p></li>
+      </ul>
+    </div>
+    <div>
+    <h3>The Benefits of Affiliating your society!</h3>
+    <ul>
+      <li><p>Club Management system via our website</p></li>
+      <li><p>Online event sign-up and attendee counter</p></li>
+      <li><p>Minibus Hire</p></li>
+      <li><p>Room bookings on campus</p></li>
+      <li><p>Funding Grants</p></li>
+      <li><p>A society page on our website</p></li>
+      <li><p>Eligibility to apply for a Freshers' Fair stall and run Freshers events</p></li>
+      <li><p>Have events appear on the discover tab on our website</p></li>
+      <li><p>HEAR: Higher Eductaion Achievment Report</p></li>
+    </ul>
+    <br>
+    <br>
+    </div>
+    <div>
+      <p>You must re-affiliate at the start of each academic year, otehrwise your affiliation from the previouse acadmic year will expire and you will not be able to book rooms or use SRC services until you re-affiliate</p>
+    </div>
+  </div>
 {% endblock %}
