@@ -53,11 +53,11 @@ def populate():
                 e.save()
     
     for s in Society.objects.all():
-        for e in Event.objects.filter(societyName=s):
+        for e in Event.objects.filter(society=s):
             print(f'- {s}: {e}')
 
 def add_event(soc, eventName, description, date, memberNum=0):
-    e = Event.objects.get_or_create(societyName=soc, eventName=eventName)[0]
+    e = Event.objects.get_or_create(society=soc, eventName=eventName)[0]
     e.description=description
     e.memberNum=memberNum
     e.date=date

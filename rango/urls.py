@@ -14,7 +14,9 @@ urlpatterns = [
     path('wellbeing/', views.wellbeing, name='wellbeing'),
     path('how-to/', views.howto, name='howto'),
     path('my-account/', views.myaccount, name='myaccount'),
+    path('my-account/add-event', views.add_event, name='add_event'),
     path('login/', views.user_login, name='login'),
     path('register/', views.register, name='register'), #society registration
     path('signup/', views.signup, name='signup'), #user sign-up
+    path('logout/', views.user_logout, name='logout'),
 ]

@@ -27,6 +27,10 @@
 
 {% block body_block %}
   <h1>Sign Up Page</h1>
+  {% if registered %}
+  <strong>thank you for signing up!</strong>
+  <a href="{% url 'Clubs&Socs:index' %}">Return to the homepage.</a><br />
+  {% else %}  
   <form id="user_form" method="post" action="{% url 'Clubs&Socs:signup' %}" enctype="multipart/form-data">
     {% csrf_token %}
     {{ user_form.as_p }}
@@ -34,5 +38,6 @@
 
     <input type="submit" name="submit" value="Sign-up" />
 </form>
+{% endif %}
   <h3>Wanting to register as a Society? <a href="{% url 'Clubs&Socs:register' %}">Register Here!</a></h3>
 {% endblock %}

@@ -12,6 +12,8 @@ class UserProfile(models.Model):
     is_society = models.BooleanField(default = False);
     is_student = models.BooleanField(default = False);
     
+    picture = models.ImageField(upload_to='profile_pictures', blank = True)
+    
 
     def __str__(self):
         return self.user.username   
@@ -39,7 +41,7 @@ class Society(models.Model):
         return self.societyName
 
 class Event(models.Model):
-    societyName = models.ForeignKey(Society, on_delete=models.CASCADE)
+    society = models.ForeignKey(Society, on_delete=models.CASCADE)
     attendee = models.ManyToManyField(UserProfile, null = True) #Many to many relationship to enable identifiaction of what regular users are attending this event
     eventName = models.CharField(max_length=64)
     description = models.CharField(max_length=256)

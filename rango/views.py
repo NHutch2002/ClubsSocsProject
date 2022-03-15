@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
-from rango.models import Society, Event
+from rango.models import Society, Event, UserProfile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from rango.forms import SocietyForm, UserForm, UserProfileForm
+from rango.forms import SocietyForm, UserForm, UserProfileForm, EventForm
 
 def index(request):
     context_dict = {}
@@ -34,7 +34,7 @@ def show_society(request, society_name_slug):
     try: 
         society = Society.objects.get(slug = society_name_slug)
         
-        events = Event.objects.filter(societyName = society)
+        events = Event.objects.filter(society = society)
         context_dict ['events'] = events
         context_dict['society'] = society
         
@@ -57,6 +57,38 @@ def show_event(request, event_name_slug):
         context_dict ['event'] = None
     
     return render(request, 'Clubs&Socs/event.html', context=context_dict)
+    
+@login_required
+def add_event(request):
+    try:
+        current_user = request.user
+        current_profile = UserProfile.objects.get(user=current_user)
+        society = Society.objects.get(owner=current_profile)
+    except:
+        society = None
+    
+    if society is None:
+        return redirect(reverse('Clubs&Socs:index'))
+
+    form = EventForm()
+
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+
+        if form.is_valid():
+            if society:
+                event = form.save(commit=False)
+                event.society = society
+                event.memberNum = 0
+                event.save()
+
+                return redirect(reverse('Clubs&Socs:myaccount'))
+        else:
+            print(form.errors)
+    
+    context_dict = {'form': form}
+    return render(request, 'Clubs&Socs/add-event.html', context=context_dict)
+
 
 
 def discover(request):
@@ -125,6 +157,10 @@ def register(request):
             profile.user = user
             profile.is_society = True
             profile.is_student = False
+            
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+                
             profile.save()
             
             society = society_form.save(commit=False)
@@ -161,6 +197,10 @@ def signup(request):
             profile.user = user
             profile.is_society = False
             profile.is_student = True
+            
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+                
             profile.save()
             
             registered = True

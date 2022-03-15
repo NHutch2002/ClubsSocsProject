@@ -1,0 +1,36 @@
+{% extends 'Clubs&Socs/base.html' %}
+
+
+{% block title_block %}
+  Sign Up
+{% endblock %}
+
+{% block extra_head %}
+  .headingbar {
+    background-color:#70ad47;
+    color:#ffffff;
+    padding:5px;
+    margin-bottom:50px;
+    text-align:center;
+  }
+
+  .homelinks{
+    display:inline;
+    margin:75px;
+    text-align:center;
+  }
+
+  .homeimages{
+    width:600px;
+  }
+{% endblock %}
+
+{% block body_block %}
+<div>
+    <form id="add_event_form" method="post" action="{% url 'Clubs&Socs:add_event'%}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" name="submit" value="Add Event" />
+    </form>
+</div>
+{% endblock %}
