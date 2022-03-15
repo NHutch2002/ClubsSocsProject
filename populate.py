@@ -74,6 +74,7 @@ def add_soc(owner, societyName, description, views=0, memberNum=0):
     
 def add_user(username, firstname, lastname, email, password, is_student, is_society):
     new_user = User.objects.get_or_create(username = username, first_name = firstname, last_name = lastname, email = email, password = password)[0]
+    new_user.set_password(new_user.password)
     new_user.save()
     u = UserProfile.objects.get_or_create(user = new_user)[0]
     u.is_student = is_student
