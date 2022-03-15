@@ -5,6 +5,7 @@ from rango.models import Society, Event, UserProfile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from rango.forms import SocietyForm, UserForm, UserProfileForm, EventForm
+from rango.decorators import society_required, student_required
 
 def index(request):
     context_dict = {}
@@ -59,6 +60,7 @@ def show_event(request, event_name_slug):
     return render(request, 'Clubs&Socs/event.html', context=context_dict)
     
 @login_required
+@society_required
 def add_event(request):
     try:
         current_user = request.user
@@ -90,7 +92,8 @@ def add_event(request):
     return render(request, 'Clubs&Socs/add-event.html', context=context_dict)
 
 
-
+@login_required
+@student_required
 def discover(request):
     context_dict = {}
 
