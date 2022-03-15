@@ -2,7 +2,7 @@
 
 
 {% block title_block %}
-  Register
+  Sign Up
 {% endblock %}
 
 {% block extra_head %}
@@ -26,14 +26,13 @@
 {% endblock %}
 
 {% block body_block %}
-  <h1>Register Page</h1>
-  <form id="user_form" method="post" action="{% url 'Clubs&Socs:register' %}" enctype="multipart/form-data">
+  <h1>Sign Up Page</h1>
+  <form id="user_form" method="post" action="{% url 'Clubs&Socs:signup' %}" enctype="multipart/form-data">
     {% csrf_token %}
     {{ user_form.as_p }}
     {{ profile_form.as_p }}
-	{{ society_form.as_p }}
 
-    <input type="submit" name="submit" value="Register" />
+    <input type="submit" name="submit" value="Sign-up" />
 </form>
-  <h3>Wanting to sign up as a Member? <a href="{% url 'Clubs&Socs:signup' %}">Sign up here!</a></h3>
+  <h3>Wanting to register as a Society? <a href="{% url 'Clubs&Socs:register' %}">Register Here!</a></h3>
 {% endblock %}

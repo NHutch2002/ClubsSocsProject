@@ -5,11 +5,38 @@
   Login
 {% endblock %}
 
+{% block extra_head %}
+  .headingbar {
+    background-color:#70ad47;
+    color:#ffffff;
+    padding:5px;
+    margin-bottom:50px;
+    text-align:center;
+  }
+
+  .homelinks{
+    display:inline;
+    margin:75px;
+    text-align:center;
+  }
+
+  .homeimages{
+    width:600px;
+  }
+{% endblock %}
 
 {% block body_block %}
   <div>
     <h1>Login Page</h1>
   </div>
+  <form id="login_form" method="post" action="{% url 'Clubs&Socs:login' %}">
+    {% csrf_token %}
+    Username: <input type="text" name="username" value="" size="50" />
+    <br />
+    Password: <input type="password" name="password" value="" size="50" />
+    <br />
+    <input type="submit" value="submit" />
+</form>
   <div>
     <ul>
       <li><a href="{% url 'Clubs&Socs:register' %}">Register</a></li>

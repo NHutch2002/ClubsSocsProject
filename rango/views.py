@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.urls import reverse
 from rango.models import Society, Event
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from rango.forms import SocietyForm, UserForm, UserProfileForm
 
 def index(request):
     context_dict = {}
@@ -81,11 +84,24 @@ def myaccount(request):
 
     return render(request, 'Clubs&Socs/my-account.html', context_dict)
 
-#We may need two separate login views for society and regular user?
-def login(request):
-    context_dict = {}
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-    return render(request, 'Clubs&Socs/login.html', context_dict)
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return redirect(reverse('Clubs&Socs:index'))
+            else:
+                return HttpResponse("Your account is disabled.")
+        else:
+            print(f"Invalid login details: {username}, {password}")
+            return HttpResponse("Invalid login details supplied.")
+    else:
+        return render(request, 'Clubs&Socs/login.html')
     
 @login_required
 def user_logout(request):
@@ -93,12 +109,65 @@ def user_logout(request):
     return redirect(reverse('Clubs&Socs:index'))
 
 def register(request):
-    context_dict = {}
+    registered = False
 
-    return render(request, 'Clubs&Socs/register.html', context_dict)
+    if request.method == 'POST':
+        user_form = UserForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
+        society_form = SocietyForm(request.POST)
+
+        if user_form.is_valid() and profile_form.is_valid() and society_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.is_society = True
+            profile.is_student = False
+            profile.save()
+            
+            society = society_form.save(commit=False)
+            society.owner = profile
+
+            if 'logo' in request.FILES:
+                society.logo = request.FILES['logo']
+            
+            society.save()
+            registered = True
+        else:
+            print(user_form.errors, profile_form.errors, society_form.errors)
+    else:
+        user_form = UserForm()
+        profile_form = UserProfileForm()
+        society_form = SocietyForm()
+    
+    return render(request, 'Clubs&Socs/register.html', context={'user_form': user_form, 'profile_form': profile_form, 'society_form': society_form, 'registered': registered})
 
 
 def signup(request):
-    context_dict = {}
+    registered = False
 
-    return render(request, 'Clubs&Socs/sign-up.html', context_dict)
+    if request.method == 'POST':
+        user_form = UserForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.is_society = False
+            profile.is_student = True
+            profile.save()
+            
+            registered = True
+        else:
+            print(user_form.errors, profile_form.errors)
+    else:
+        user_form = UserForm()
+        profile_form = UserProfileForm()
+    
+    return render(request, 'Clubs&Socs/signup.html', context={'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
