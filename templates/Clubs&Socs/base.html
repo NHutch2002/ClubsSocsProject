@@ -10,6 +10,10 @@
       {% endblock %}
     </title>
     <style>
+      *{
+        margin: 0;
+        padding: 0;
+      }
       .header{
         background-color:#0070c0;
         padding: 20px;
@@ -19,37 +23,122 @@
         margin-left: 2%;
         max-height: 125px;
       }
-      .searchbar{
+
+      nav{
+        float: right;
+        display: inline-flex;
+        height: 70px;
+        vertical-align: 250%
+      }
+
+      nav .searchbar{
+        margin-right: 100px;
+        margin-left: 75px;
+        margin-top:45px;
         display: inline-block;
         color: #ffffff;
-        margin-left: 50%;
-        vertical-align: 250%;
-        border: 3px solid grey;
+      }
+
+
+      nav .nav-items li{
+        margin-top:50px;
+        display: inline-block;
+        list-style: none;
+        padding: 0 10px
+      }
+      nav .nav-items li a {
+        padding:25px;
+        color:#fff;
+        text-decoration: none;
+        font-size: 18px;
+      }
+      nav .nav-items li a:hover{
+        background-color: #ed7d31;
+      }
+      nav .nav-items li a:active{
+        background-color: #ffc000;
       }
       .profile{
         display: inline-block;
         float: right;
-        max-height: 80px;
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+        object-fit: cover;
       }
 
       .loginblock{
-        display:inline;
+        display:inline-block;
         float:right;
         text-align:center;
         margin-right:10px;
         margin-top: 10px;
       }
 
+      .profileblock{
+        display:inline-block;
+        float:right;
+        text-align:center;
+        margin-right:10px;
+        margin-top: 10px;
+      }
+
+      #results {
+        display: none;
+        list-style-type: none;
+      }
+
+      #results li a {
+        border: 1px solid #000;
+        margin-top: -1px;
+        background-color: #fff;
+        padding: 10px;
+        text-decoration: none;
+        text-align: center;
+        font-size: 18px;
+        color: #000;
+        display:block;
+      }
+
+      #results li a:hover {
+        background-color: #0070c0
+      }
+
       html{
         font-family: Trebuchet MS, sans-serif;
       }
-
-
 
       {% block extra_head %}
       {% endblock %}
     </style>
 
+    <script type="text/javascript">
+
+      function displaySearch(){
+        var results = document.getElementById('results');
+        results.style.display = "block";
+      }
+
+      function filter() {
+        // Declare variables
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById('input');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("results");
+        li = ul.getElementsByTagName('li');
+
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+          a = li[i].getElementsByTagName("a")[0];
+          txtValue = a.textContent || a.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+          } else {
+            li[i].style.display = "none";
+          }
+        }
+      }
+    </script>
   </head>
   <header>
     <div class="header">
@@ -58,34 +147,53 @@
           <img src="{% static 'images/logo.png' %}" class="logo "alt="Picture of logo">
         </a>
       </div>
-      <div style="display:inline;">
-        <strong class="searchbar">*Searchbar in here*</strong>
-      </div>
-      <div class="loginblock">
-        <a href="{% url 'Clubs&Socs:login' %}" style="text-decoration:none;">
-          <img src="{% static 'images/genericprofile.png' %}" class="profile" alt="Profile Picture">
-          <h2 style="color:black">Login</h2>
-        </a>
-      </div>
+      <nav>
+        <div class="nav-items">
+          <li><a href="{% url 'Clubs&Socs:discover' %}"><strong>What's On!</strong></a></li>
+          <li><a href="{% url 'Clubs&Socs:wellbeing' %}"><strong>Advice & Support</strong></a></li>
+          <li><a href="{% url 'Clubs&Socs:howto' %}"><strong>Start a Club/Society</strong></a></li>
+          <li><a href="{% url 'Clubs&Socs:societies' %}"><strong>Find a Club/Society</strong></a></li>
+        </div>
+
+        <div class="searchbar">
+          <input style="height:30px;width:300px;padding-left:15px" id="input" type="text" placeholder="Search..." onkeyup="displaySearch();filter()">
+          <ul id="results">
+            <li><a href="{% url 'Clubs&Socs:discover' %}">What's On</a></li>
+            <li><a href="{% url 'Clubs&Socs:wellbeing' %}">Advice & Support</a></li>
+            <li><a href="{% url 'Clubs&Socs:howto' %}">Start a Club</a></li>
+            <li><a href="{% url 'Clubs&Socs:societies' %}">Find a Club</a></li>
+            <li><a href="{% url 'Clubs&Socs:login' %}">Login to your Account</a></li>
+            <li><a href="{% url 'Clubs&Socs:register' %}">Register as a Student</a></li>
+            <li><a href="{% url 'Clubs&Socs:signup' %}">Register as a Society</a></li>
+          </ul>
+        </div>
+
+        {% if user.is_authenticated %}
+          <div class="profileblock">
+            <a href="{% url 'Clubs&Socs:myaccount' %}" style="text-decoration:none">
+              {% if user.userprofile.picture %}
+                <img src="{{ user.userprofile.picture.url }}" class="profile" alt="Profile Picture">
+              {% else %}
+                <img src="{% static 'images/genericprofile.png' %}" class="profile" alt="Profile Picture">
+              {% endif %}
+            </a>
+            <h2><a style="color:black;text-decoration:none" href="{% url 'Clubs&Socs:myaccount' %}">{{ user.username }}</a>|<a style="color:black;text-decoration:none" href="{% url 'Clubs&Socs:logout' %}">Logout</a></h2>
+          </div>
+        {% else %}
+          <div class="loginblock">
+            <a href="{% url 'Clubs&Socs:login' %}" style="text-decoration:none;display:inline">
+              <img src="{% static 'images/genericprofile.png' %}" class="profile" alt="Profile Picture">
+              <h2 style="color:black">Login</h2>
+            </a>
+          </div>
+        {% endif %}
+      </nav>
     </div>
   </header>
   <body>
     <div>
       {% block body_block %}
       {% endblock %}
-    </div>
-    <h1>Test for base template</h1>
-    <div>
-      <ul>
-        <li><a href="{% url 'Clubs&Socs:index' %}">Homepage</a></li>
-        <li><a href="{% url 'Clubs&Socs:societies' %}">Societies</a></li>
-        <li><a href="{% url 'Clubs&Socs:discover' %}">Discover</a></li>
-        <li><a href="{% url 'Clubs&Socs:result' %}">Result <strong>This will be accesible through search only here for proof it exists</strong></a></li>
-        <li><a href="{% url 'Clubs&Socs:wellbeing' %}">Wellbeing</a></li>
-        <li><a href="{% url 'Clubs&Socs:howto' %}">How To</a></li>
-        <li><a href="{% url 'Clubs&Socs:myaccount' %}">My Account</a></li>
-        <li><a href="{% url 'Clubs&Socs:login' %}">Login</a></li>
-      </ul>
     </div>
   </body>
 </html>
