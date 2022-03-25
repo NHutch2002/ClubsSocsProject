@@ -3,62 +3,59 @@
 {% load staticfiles %}
 
 {% block title_block %}
-  Homepage
+  Wellbeing
 {% endblock %}
 
 {% block extra_head %}
   .headingbar {
     background-color:#70ad47;
     color:#ffffff;
-    padding:50px;
+    padding:20px;
     margin-bottom:50px;
     text-align:center;
   }
 
   .homelinks{
-    position: relative;
-    margin:100px;
+    display:inline;
+    margin:150px;
     text-align:center;
-    margin-top:50;
-    font-size: 2em;
   }
 
   .homeimages{
-    width:850px;
-    height: 350px;
+    width:600px;
+  }
 {% endblock %}
 
 {% block body_block %}
   <div class="headingbar">
-    <h1>Wellbeing</h1>
-    <h3>If you require any assistance while at University, the pages linked below provide guidance on how to get the support you need.</h3>
+    <h1>Wellbeing - External links</h1>
+    <p>If you require any assistance while at University, the pages linked below provide guidance on how to get the support you need.</p>
   </div>
   <div style="float:left;">
-    
+    <div class="homelinks">
+      <a href="https://www.nhsinform.scot/"  style="text-decoration:none">
+        <img class="homeimages" src="{% static 'images/healthcare.jpg' %}" alt="Find a Club">
+        <h3 style="color:#000">Healthcare</h3>
+      </a>
+    </div>
     <div class="homelinks">
       <a href="https://www.gla.ac.uk/myglasgow/securityandoperationalsupport/"  style="text-decoration:none">
-        <img class="homeimages" src="{% static 'images/safety.jpg' %}" alt="Safety & Security">
+        <img class="homeimages" src="{% static 'images/safety.jpg' %}" alt="What's On">
         <h3 style="color:#000">Safety & Security</h3>
       </a>
     </div>
-  <div class="homelinks">
-    <a href="https://www.nhsinform.scot/"  style="text-decoration:none">
-      <img class="homeimages" src="{% static 'images/healthcare.jpg' %}" alt="Healthcare">
-      <h3 style="color:#000">Healthcare</h3>
-    </a>
   </div>
-</div>
 
   <div style="float:right;">
     <div class="homelinks">
       <a href="https://archway.sandyford.org/" style="text-decoration:none">
-        <img class="homeimages" src="{% static 'images/sexualsupport.png' %}" alt="Sexual Violence">
+        <img class="homeimages" src="{% static 'images/sexualsupport.png' %}" alt="Start a Club">
         <h3 style="color:#000">Sexual Violence Support & Resources</h3>
       </a>
     </div>
     <div class="homelinks">
       <a href="https://www.gla.ac.uk/media/Media_741856_smxx.pdf"  style="text-decoration:none">
-        <img class="homeimages" src="{% static 'images/socialnetwork.jpg' %}" alt="Social Networking Guidelines">
+        <img class="homeimages" src="{% static 'images/socialnetwork.jpg' %}" alt="Advice & Support">
         <h3 style="color:#000">Social Networking Guidelines</h3>
       </a>
     </div>
