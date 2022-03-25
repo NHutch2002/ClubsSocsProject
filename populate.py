@@ -1,5 +1,6 @@
 import datetime
 import os
+from django.core.files import File
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','ClubsSocsProject.settings')
 
 import django
@@ -69,6 +70,9 @@ def add_soc(owner, societyName, description, views=0, memberNum=0):
     s.description = description
     s.views = views
     s.memberNum = memberNum
+    logo = open("./media/society_logos/placeholder.jpg", "rb")
+    django_logo = File(logo)
+    s.logo.save("placeholder.jpg", django_logo, save = True)
     s.save()
     return s
     
