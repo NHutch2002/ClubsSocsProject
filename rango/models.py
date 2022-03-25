@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from django.utils import timezone
 import datetime
 
 # Create your models here.
@@ -21,7 +22,7 @@ class UserProfile(models.Model):
 #Should we have a OneToOne relationship with User in Society, because there are society users? Ask tutor if possible
 class Society(models.Model):
     owner = models.OneToOneField(UserProfile, on_delete=models.CASCADE, null = True) #One to one relationship defining a user who owns the society.
-    member = models.ManyToManyField(UserProfile, related_name = "memberOf", null = True) #Many to many relationship to enable identifiaction of what regular users are members of this society
+    member = models.ManyToManyField(UserProfile, related_name = "memberOf") #Many to many relationship to enable identifiaction of what regular users are members of this society
     societyName = models.CharField(max_length=64, unique=True)
     logo = models.ImageField(upload_to='society_logos', default = 'avatar.png')
     description = models.CharField(max_length=256)
@@ -42,11 +43,11 @@ class Society(models.Model):
 
 class Event(models.Model):
     society = models.ForeignKey(Society, on_delete=models.CASCADE)
-    attendee = models.ManyToManyField(UserProfile, null = True) #Many to many relationship to enable identifiaction of what regular users are attending this event
+    attendee = models.ManyToManyField(UserProfile) #Many to many relationship to enable identifiaction of what regular users are attending this event
     eventName = models.CharField(max_length=64)
     description = models.CharField(max_length=256)
     memberNum = models.IntegerField(default=0)
-    date = models.DateField(default = datetime.date.today())
+    date = models.DateField(default = timezone.now())
     slug = models.SlugField(unique = True)
     
     def save(self, *args, **kwargs):
