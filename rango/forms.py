@@ -27,7 +27,7 @@ class EventForm(forms.ModelForm):
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
-
+    widget=forms.EmailInput(attrs={'class': 'container'})
     class Meta:
         model = User
         fields = ('username', 'email', 'password', 'first_name', 'last_name')
