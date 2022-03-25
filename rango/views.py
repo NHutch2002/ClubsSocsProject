@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from rango.forms import SocietyForm, UserForm, UserProfileForm, EventForm
 from rango.decorators import society_required, student_required
+from django.views import View
+
 
 def index(request):
     context_dict = {}
@@ -34,28 +36,43 @@ def show_society(request, society_name_slug):
     
     try: 
         society = Society.objects.get(slug = society_name_slug)
-        
         events = Event.objects.filter(society = society)
         context_dict ['events'] = events
         context_dict['society'] = society
         
-    except Society.DoesNotExist:
-        context_dict ['events'] = None
-        context_dict['society'] = None
+        current_user =  request.user
+        current_profile = UserProfile.objects.get(user=current_user)
+        context_dict['user_profile'] = current_profile
+
+
+    except:
+        society = None
     
-    return render(request, 'Clubs&Socs/societies.html', context=context_dict)
+    if society is None:
+        return redirect(reverse('Clubs&Socs:index'))
+    
+    return render(request, 'Clubs&Socs/society.html', context=context_dict)
     
     
 # Figure out how to create show_event
-def show_event(request, event_name_slug):
+def show_event(request, society_name_slug, event_name_slug):
     context_dict = {}
     
-    try: 
+    try:
+        society = Society.objects.get(slug = society_name_slug) 
         event = Event.objects.get(slug = event_name_slug)
+        context_dict ['society'] = society
         context_dict ['event'] = event
+
+        current_user =  request.user
+        current_profile = UserProfile.objects.get(user=current_user)
+        context_dict['user_profile'] = current_profile
         
-    except Society.DoesNotExist:
-        context_dict ['event'] = None
+    except:
+        event = None
+    
+    if event is None:
+        return redirect(reverse('Clubs&Socs:index'))
     
     return render(request, 'Clubs&Socs/event.html', context=context_dict)
     
@@ -95,8 +112,10 @@ def add_event(request):
 @login_required
 @student_required
 def discover(request):
+    event_list = Event.objects.order_by('-date')[:3]
+    print(event_list)
     context_dict = {}
-
+    context_dict['events'] = event_list
     return render(request, 'Clubs&Socs/discover.html', context_dict)
 
 def result(request):
@@ -214,3 +233,31 @@ def signup(request):
         profile_form = UserProfileForm()
     
     return render(request, 'Clubs&Socs/signup.html', context={'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
+
+#@login_required
+#@student_required
+class JoinButtonView(View):
+    def get(self, request):
+        society_id = request.GET['society_id']
+        society = Society.objects.get(societyName = society_id)
+        current_user =  request.user
+        current_profile = UserProfile.objects.get(user=current_user)
+        society.member.add(current_profile)
+        society.memberNum = society.memberNum + 1
+        society.save()
+
+        return HttpResponse()
+
+class EventButtonView(View):
+    def get(self, request):
+        event_name = request.GET['event_name']
+        event = Event.objects.get(eventName = event_name)
+        current_user =  request.user
+        current_profile = UserProfile.objects.get(user=current_user)
+        event.attendee.add(current_profile)
+        event.memberNum = event.memberNum + 1
+        event.save()
+
+        return HttpResponse()
+
+

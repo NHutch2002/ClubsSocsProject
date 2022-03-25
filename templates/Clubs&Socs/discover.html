@@ -1,11 +1,66 @@
 {% extends 'Clubs&Socs/base.html' %}
-
+{% load staticfiles %}
 
 {% block title_block %}
   Discover
 {% endblock %}
 
+{% block extra_head %}
+  .headingbar {
+    background-color:#70ad47;
+    color:#ffffff;
+    padding:20px;
+    margin-bottom:50px;
+    text-align:center;
+  }
+
+
+.column {
+  float: left;
+  width: 31.5%;
+  padding: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align:center;
+}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.societylogo{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+
+
+{% endblock %}
+
 
 {% block body_block %}
-  <h1>Discover Page</h1>
-{% endblock %}
+  <div class="headingbar">
+    <h1>Discover Page</h1>
+  </div>
+  <div class="row">
+    {% if events %}
+      {% for event in events %}
+      <div class="column">
+        <a href="{% url  'Clubs&Socs:show_event' society_name_slug=event.society.slug event_name_slug=event.slug %}"  style="text-decoration:none">
+          <img src="{{event.society.logo.url}}"  alt="Society Logo" class = "societylogo">
+          <h3 style="color:#000" >{{event.eventName}}</h3>
+          <h4 style="color:#000" >{{event.description}}</h2>
+        </a>
+      </div>
+      {% endfor %}
+    {% else %}
+      <strong>There are no events present.</strong>
+    {% endif %}
+  </div>
+{% endblock %}>
+

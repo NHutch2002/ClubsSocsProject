@@ -23,7 +23,7 @@ class Society(models.Model):
     owner = models.OneToOneField(UserProfile, on_delete=models.CASCADE, null = True) #One to one relationship defining a user who owns the society.
     member = models.ManyToManyField(UserProfile, related_name = "memberOf", null = True) #Many to many relationship to enable identifiaction of what regular users are members of this society
     societyName = models.CharField(max_length=64, unique=True)
-    logo = models.ImageField(upload_to='society_logos', blank = True)
+    logo = models.ImageField(upload_to='society_logos', default = 'avatar.png')
     description = models.CharField(max_length=256)
     views = models.IntegerField(default=0)
     memberNum = models.IntegerField(default=0)

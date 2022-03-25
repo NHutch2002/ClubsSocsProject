@@ -19,4 +19,6 @@ urlpatterns = [
     path('register/', views.register, name='register'), #society registration
     path('signup/', views.signup, name='signup'), #user sign-up
     path('logout/', views.user_logout, name='logout'),
+    path('join_button/', views.JoinButtonView.as_view(), name='join_button'),
+    path('event_button/', views.EventButtonView.as_view(), name='event_button'),
 ]
