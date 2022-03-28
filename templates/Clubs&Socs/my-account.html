@@ -24,22 +24,7 @@
       text-align: center;
       font-size: 2em;
 
-  .imgcontainer {
-    text-align: center;
-    margin: 24px 0 12px 0;
-    border-radius:50%;
-  }
-
-  .label{
-    color: white;
-    padding: 20px 20px;
-    margin: 10px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-  }
-
-  p{
+  .p{
     text-align: center;
     color: black;
     padding: 20px 20px;
@@ -51,19 +36,9 @@
     font-weight:bold;
   }
 
-
-  b{
-    font-size:30px;
-  }
-
-  d{
-    font-size:30px;
-  }
-
-  .info{
-    text=align:center;
+  info{
+    text-align: center;
     background-color:#ccdfeb;
-    padding:10px;
   }
 
   
@@ -82,26 +57,31 @@
   <img src="{{user.picture}}" >
 </div>
 
-{%if user.is_society%}
-  <h4>Your Club/Society details:</h4><br>>
+{%if user.userprofile.is_society%}
+  <h4>Your Club/Society details:</h4><br>
    <div class="info">
-      <li><p>Your society's name</p></li>
-      <h3 style="color:#000">{{user.societyName}}</h3>
-      <li><p>Number of members in your society</p></li>
-      <h3 style="color:#000" >{{user.memberNum}}</h3>
-      <li><p>Your society's description</p></li>
-      <h3 style="color:#000" >{{user.description}}</h3>
+      <h2>Your society's name</h2>
+      <h3 style="color:#000">{{user.userprofile.society.societyName}}</h3>
+      <h2>Number of members in your society</h2>
+      <h3 style="color:#000" >{{user.userprofile.society.memberNum}}</h3>
+      <h2>Your society's description</h2>
+      <h3 style="color:#000" >{{user.userprofile.society.description}}</h3>
+      <h2>Your society's views</h2>
+      <h3 style="color:#000" >{{user.userprofile.society.views}}</h3>
     </div>
 {%else%}
   <h4>Your account details:</h4><br>
    <div class="info">
       <h2>Your username</h2>
       <h3 style="color:#000" >{{user.username}}</h3>
-      <li><p>Your first name</p></li>
-      <h3 style="color:#000" >{{user.firstname}}</h3>
-      <li><p>Your last name</p></li>
-      <h3 style="color:#000" >{{user.lastname}}</h3>
-{%endif%}
+      <h2>Your first name</h2>
+      <h3 style="color:#000" >{{user.first_name}}</h3>
+      <h2>Your last name</h2>
+      <h3 style="color:#000" >{{user.last_name}}</h3>
+      <h2>Your picture</h2>
+      {% if user.userprofile.picture %}
+        <img src="{{ user.userprofile.picture.url }}" class="profile" alt="Profile Picture">
+      {% endif %}
     </div>
-
+{% endif %}
 {% endblock %}
