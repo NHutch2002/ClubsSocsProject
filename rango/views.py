@@ -37,9 +37,24 @@ def index(request):
     return render(request, 'Clubs&Socs/index.html', context_dict)
 
 def societies(request):
-    context_dict = {}
-
+    society_list= Society.objects.order_by('-societyName')
+    society_list=society_list.reverse()
+    context_dict={}
+    context_dict["societies"] = society_list
     return render(request, 'Clubs&Socs/societies.html', context_dict)
+
+
+def societiesP(request):
+    society_list= Society.objects.order_by('-memberNum')
+    context_dict={}
+    context_dict["societies"] = society_list
+    return render(request, 'Clubs&Socs/societiesP.html', context_dict)
+
+def societiesV(request):
+    society_list= Society.objects.order_by('-views')
+    context_dict={}
+    context_dict["societies"] = society_list
+    return render(request, 'Clubs&Socs/societiesV.html', context_dict)
 
 #add html
 def society(request):
@@ -157,8 +172,15 @@ def howto(request):
     return render(request, 'Clubs&Socs/how-to.html', context_dict)
 
 def myaccount(request):
-    context_dict = {}
-
+    #current_user=request.user
+    #current_profile = UserProfile.objects.get(user=current_user)
+    #if current_profile.is_society==True:
+        #society = Society.objects.get(owner=current_profile)
+        #context_dict={}
+        #context_dict["user"]= society
+    #else:
+    context_dict={}
+        #context_dict["user"]= current_profile
     return render(request, 'Clubs&Socs/my-account.html', context_dict)
 
 def user_login(request):

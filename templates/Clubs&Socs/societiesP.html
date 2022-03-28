@@ -86,6 +86,7 @@
     <h1>Societies</h1>
     <h3>Here are our list of societies!</h3>
   </div>
+  <form method="post" action="{% url 'Clubs&Socs:societies' %}">
   <div class="dropdown" style="float:right;">
   <button class="dropbtn">Filter by:</button>
   <div class="dropdown-content">
@@ -94,6 +95,7 @@
     <a href="{% url 'Clubs&Socs:societiesV' %}">Most viewed</a>
   </div>
   </div>
+  </form>
     {% if societies %}
       {% for society in societies %}
         <div class="row">

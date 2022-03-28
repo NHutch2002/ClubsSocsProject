@@ -6,6 +6,8 @@ app_name = 'Clubs&Socs'
 urlpatterns = [
     path('', views.index, name='index'),
     path('societies/', views.societies, name='societies'),
+    path('societiesP', views.societiesP, name='societiesP'),
+    path('societiesV', views.societiesV, name='societiesV'),
     #Check two lines below to ensure they are correct url mapping for parameterized url
     path('societies/<slug:society_name_slug>/', views.show_society, name='show_society'),
     path('societies/<slug:society_name_slug>/<slug:event_name_slug>/', views.show_event, name='show_event'),
