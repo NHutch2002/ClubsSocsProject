@@ -23,7 +23,7 @@ def populate():
     ]
     
     sport_society = {'societyName' : 'Sport', 'events': sport_events, 'description': 'The sports society', 'views': 1464, 'memberNum' : 124}
-    art_society = {'societyName' : 'Art','events': art_events, 'description': 'The sports society', 'views': 1162, 'memberNum' : 64}
+    art_society = {'societyName' : 'Art','events': art_events, 'description': 'The art society', 'views': 1162, 'memberNum' : 64}
     
     users = {'Student1': {'firstname' : 'student', 'lastname' : '1', 'email' : 'student1@gmail.com', 'password' : 'WaD2-2021', 'is_student' : True, 'is_society' : False, 'member' : ['Sport'], 'event' : ['Yoga']},
             'Student2' : {'firstname' : 'student', 'lastname' : '2', 'email' : 'student2@gmail.com', 'password' : 'WaD2-2021', 'is_student' : True, 'is_society' : False, 'member' : ['Art', 'Sport'], 'event' : ['5-a-side football','Karaoke']},

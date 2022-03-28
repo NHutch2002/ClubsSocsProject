@@ -1,59 +1,14 @@
 {% extends 'Clubs&Socs/base.html' %}
 {% load static %}
 
+
+
 {% block title_block %}
   Society
 {% endblock %}
 
 {% block extra_head %}
-  .headingbar {
-    background-color:#70ad47;
-    color:#ffffff;
-    padding:20px;
-    margin-bottom:50px;
-    text-align:center;
-  }
 
-  .column {
-    float: left;
-    width: 48%;
-    padding: 15px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align:center;
-  }
-  
-  
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-
-  .button {
-    background-color: #FF7F50;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    color: black;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    font-weight: bold;
-  }
-
-  .disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-
-  .societylogo{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-  }
   
 
 
@@ -66,22 +21,36 @@
       <h1>{{society.societyName}}</h1>
       <h3>Sign up for {{society.societyName}}!</h3>
     </div>
-    <div class="row">
-      <div class="column">
-        <img src="{{society.logo.url}}"  alt="Society Logo">
-        <h4 style="color:#000">{{society.description}}</h3>
-      </div>
 
-      <div class="column">
+    <div class="row">
+      <div class="twocolumn">
+        <img src="{{society.logo.url}}"  alt="Society Logo">
+        <h3 style="color:#000">{{society.description}}</h3>
+      <div>
         {% if user_profile in society.member.all %}
-        <button class="button disabled" id="join_btn" data-society="{{society.societyName}}" disabled>
-          Joined
-        </button>
+          <button class="button disabled" id="join_btn" data-society="{{society.societyName}}" disabled>
+            Joined
+          </button>
         {% else %}
-        <button class="button" id="join_btn" data-society="{{society.societyName}}">
-          Join
-        </button>
+          <button class="button" id="join_btn" data-society="{{society.societyName}}">
+            Join
+          </button>
         {% endif %}
+    </div>
+    </div>
+
+      <div class="twocolumn">
+        <div>
+          <h3 style="text-decoration: underline;">Upcoming {{society.societyName}} events: </h3>
+        </div>
+        {% for event in events %}
+        <div class="eventdiv">
+        <a href="{% url  'Clubs&Socs:show_event' society_name_slug=event.society.slug event_name_slug=event.slug %}"  style="text-decoration:none">
+          <h3 style="color:#000" >{{event.eventName}} | {{event.date}}</h3>
+          <h4 style="color:#000" >{{event.description}}</h2>
+        </a>
+        </div>
+        {% endfor %}
       </div>
     </div>
-{% endblock %}>
+{% endblock %}

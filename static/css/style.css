@@ -1,0 +1,137 @@
+  .headingbar {
+    background-color:#70ad47;
+    color:#ffffff;
+    padding:20px;
+    margin-bottom:50px;
+    text-align:center;
+  }
+
+  .twocolumn {
+    float: left;
+    width: 48%;
+    padding: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+  }
+
+  .threecolumn {
+      float: left;
+      width: 31.5%;
+      padding: 15px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align:center;
+  }
+
+  
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .button {
+    background-color: #FF7F50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 25px;
+  }
+
+  .disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .societylogo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+  .eventdiv{
+    padding: 25px;
+  }
+
+  .howh4{
+    color: black;
+    text-align: center;
+    font-size: 3em;
+
+  }
+
+  .howdiv{
+    text-align:center;
+    font-size: 1.1em;
+  }
+
+  .requirements {
+    background-color:#ccdfeb;
+    padding:10px;
+  }
+
+  .homelinks{
+    position: relative;
+    margin:100px;
+    text-align:center;
+    margin-top:50;
+    font-size: 2em;
+  }
+
+  .homeimages{
+    width:850px;
+  }
+
+  .cancelbtn {
+    width: auto;
+    padding: 40px 200px;
+    background-color: #f44336;
+  }
+  
+  .registerbtn {
+    width: auto;
+    margin:auto;
+    padding: 40px 200px;
+    background-color: #e1f530;
+  }
+  
+  
+  .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    border-radius:50%;
+  }
+  
+  img.avatar {
+    width: 8%;
+    border-radius: 50%;
+  }
+  
+  .container {
+    width:1000px;
+  }
+  
+  .content {
+    max-width: 1000px;
+    margin: 0   auto;
+    background: white;
+    padding: 10px;
+  }
+
+  .label{
+  color: white;
+  padding: 20px 20px;
+  margin: 10px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+

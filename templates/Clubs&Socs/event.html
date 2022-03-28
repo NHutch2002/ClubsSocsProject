@@ -6,54 +6,35 @@
 {% endblock %}
 
 {% block extra_head %}
-  .headingbar {
-    background-color:#70ad47;
-    color:#ffffff;
-    padding:20px;
-    margin-bottom:50px;
-    text-align:center;
-  }
-
- .container{
-  float: left;
-  width: 300px;
-  margin: auto;
-}
-
-  .column{
-    width: 25%
-
-  }
-  
-
-
-
 {% endblock %}
 
 
 {% block body_block %}
-  <body>
     <div class="headingbar">
       <h1>{{event.eventName}}</h1>
       <h3>Join this {{society.societyName}} club event!</h3>
     </div>
-    <div class="container"> 
-      <img src="{{society.logo.url}}"  alt="Society Logo">
-      <h4 style="color:#000">{{event.description}}</h3>
-    </div>
-    <div>
 
+    <div class="row">
+      <div class="twocolumn">
+        <img src="{{society.logo.url}}"  alt="Society Logo">
+        <h3 style="color:#000">{{event.eventName}}</h3>
+      </div> 
+ 
+    <div class = "twocolumn">
+      <div>
+        <h3 style="padding:25px" >Date: {{event.date}}</h4>
+        <h4>{{event.description}}</h4>
+      </div>
+      {% if user_profile in event.attendee.all %}
+        <button class = "button disabled" id="event_btn" data-event="{{event.eventName}}" disabled>
+          Attending
+        </button>
+      {% else %}
+        <button class = "button" id="event_btn" data-event="{{event.eventName}}">
+          Attend
+        </button>
+      {% endif %}
     </div>
-    <div>
-    {% if user_profile in event.attendee.all %}
-      <button class="btn btn-primary" id="event_btn" data-event="{{event.eventName}}" disabled>
-        Joined
-      </button>
-    {% else %}
-      <button class="btn btn-primary" id="event_btn" data-event="{{event.eventName}}">
-        Join
-      </button>
-    {% endif %}
-    </div>
-  </body>
+  </div>
 {% endblock %}>

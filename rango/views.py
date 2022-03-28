@@ -59,7 +59,7 @@ def show_society(request, society_name_slug):
 
     try:
         society = Society.objects.get(slug = society_name_slug)
-        events = Event.objects.filter(society = society)
+        events = Event.objects.filter(society = society).order_by('-date')[:5]
         context_dict ['events'] = events
         context_dict['society'] = society
 

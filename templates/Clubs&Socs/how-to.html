@@ -6,31 +6,6 @@
 {% endblock %}
 
 {% block extra_head %}
-  .headingbar {
-    background-color:#70ad47;
-    color:#ffffff;
-    padding:50px;
-    margin-bottom:50px;
-    text-align:center;
-  }
-
-  h4{
-    color: black;
-    text-align: center;
-    font-size: 3em;
-
-  }
-
-  div{
-    text-align:center;
-    font-size: 1.1em;
-  }
-
-  .requirements {
-    background-color:#ccdfeb;
-    padding:10px;
-  }
-
 {% endblock %}
 
 {% block body_block %}
@@ -38,8 +13,8 @@
     <h1>Start a Club</h1>
     <h3>How to create a new Society!</h3>
   </div>
-  <div>
-    <h4>Affiliate your Club/Society</h4><br>
+  <div class="howdiv">
+    <h4 class="howh4">Affiliate your Club/Society</h4><br>
     <p1>To fill the affiliate application, you must have registered for an account, which can be done <a href="{% url 'Clubs&Socs:login' %}">here</a></p1><br>
     <p1>In order become an affiliate, you must complete an online affiliation application, which can be found *here*. You must have the following documents on hand to submit within your application:</p1>
     <ul>
@@ -58,7 +33,7 @@
         <li><p>Not replicate the remit of an existing club or society. A club or society must be able to clearly demonstrate its specific purpose and identity, and these must be different from any other pre-existing club or society.</p></li>
       </ul>
     </div>
-    <div>
+    <div class="howdiv">
     <h3>The Benefits of Affiliating your society!</h3>
     <ul>
       <li><p>Club Management system via our website</p></li>
